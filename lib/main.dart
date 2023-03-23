@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:issuetracker/pages/home.dart';
 import 'package:issuetracker/pages/login.dart';
 import 'package:issuetracker/pages/loading.dart';
+import 'package:issuetracker/pages/addIssue.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -13,6 +14,7 @@ void main() {
       '/': (context) => Loading(),
       '/login': (context) => Login(),
       '/home': (context) => Home(),
+      '/addIssue': (context) => addIssue(),
     },
   ));
 }
