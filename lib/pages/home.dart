@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    List<Widget> containerList = [];
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -27,66 +28,74 @@ class _HomeState extends State<Home> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              children: [
-                Container(
-                  height: 150,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.grey[200],
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: List.generate(15, (index) {
+              return Column(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 378,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      color: Colors.grey[200],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 16.0),
+                                child: Text(
+                                  'Issue Type',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Text(
+                                  'Distance',
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 160,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                            child: Container(
+                              width: 100,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.greenAccent,
+                              ),
+                              child: Center(child: Text('In progress')),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 150,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.grey[200],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 150,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.grey[200],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 150,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.grey[200],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 150,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Colors.grey[200],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            )),
+                  SizedBox(height: 10.0),
+                ],
+              );
+            }),
+          ),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.blueGrey,
@@ -104,18 +113,6 @@ class _HomeState extends State<Home> {
               onPressed: () {},
             ),
             SizedBox(width: 32.0),
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black54,
-              ),
-              child: IconButton(
-                iconSize: 50.0,
-                icon: Icon(Icons.add),
-                onPressed: () {},
-                color: Colors.white,
-              ),
-            ),
             SizedBox(width: 32.0),
             IconButton(
               iconSize: 40.0,
@@ -126,6 +123,15 @@ class _HomeState extends State<Home> {
               onPressed: () {},
             ),
           ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
         ),
       ),
     ));

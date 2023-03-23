@@ -53,11 +53,15 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 12.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
               onPressed: () {
                 // Perform login functionality here till then it shows the next page
                 Navigator.pushNamed(context, '/home');
               },
-              child: Text('Login'),
+              child: Text(
+                'Login',
+                style: TextStyle(),
+              ),
             ),
             SizedBox(height: 12.0),
             SignInButton(
