@@ -1,11 +1,44 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'authService.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+void showOptions(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () {
+              // Navigate to profile screen
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Logout'),
+            onTap: () {
+              // Perform logout action
+              AuthService().signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class _HomeState extends State<Home> {
@@ -19,14 +52,32 @@ class _HomeState extends State<Home> {
         home: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blueGrey,
-            title: Text('Issues Near You'),
+            // title: Text('Issues Near You'),
+            title: Text(FirebaseAuth.instance.currentUser!.displayName!),
             actions: <Widget>[
-              Container(
-                margin: EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('asset/sidePortriat.jpg'),
+              // Container(
+              //   margin: EdgeInsets.all(8.0),
+              //   child: CircleAvatar(
+              //     backgroundImage: AssetImage('asset/sidePortriat.jpg'),
+              //     backgroundImage: NetworkImage(
+              //         'FirebaseAuth.instance.currentUser!.photoURL!'),
+
+              //   ),
+
+              // ),
+              GestureDetector(
+                onTap: () {
+                  showOptions(context);
+                },
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'FirebaseAuth.instance.currentUser!.photoURL!'),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
           body: SingleChildScrollView(

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:issuetracker/pages/authService.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -72,6 +73,7 @@ class _LoginState extends State<Login> {
                   Buttons.Google,
                   onPressed: () {
                     // Perform sign in with Google functionality here
+                    AuthService().signInWithGoogle();
                   },
                 ),
               ],
