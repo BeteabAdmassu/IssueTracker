@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:issuetracker/pages/home.dart';
 import 'package:issuetracker/pages/login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:issuetracker/pages/profile.dart';
 
 class AuthService {
 //Determine if the user is authenticated.
@@ -38,7 +39,7 @@ class AuthService {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  signOut() {
-    FirebaseAuth.instance.signOut();
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

@@ -7,6 +7,9 @@ import 'package:issuetracker/pages/login.dart';
 import 'package:issuetracker/pages/loading.dart';
 import 'package:issuetracker/pages/addIssue.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:issuetracker/pages/profile.dart';
+
+import 'pages/detailIssue.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +24,8 @@ Future<void> main() async {
       '/home': (context) => Home(),
       '/addIssue': (context) => addIssue(),
       '/authGoogle': (context) => AuthService().handleAuthState(),
+      '/profile': (context) => profile(),
+      '/IssueDetails': (context) => IssueDetails(),
     },
   ));
 }

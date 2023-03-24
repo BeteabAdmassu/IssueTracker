@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'authService.dart';
 
 class Home extends StatefulWidget {
@@ -18,14 +16,15 @@ void showOptions(BuildContext context) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
-            onTap: () {
-              // Navigate to profile screen
-              Navigator.pop(context);
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.person),
+          //   title: Text('Profile'),
+          //   onTap: () {
+          //     // Navigate to profile screen
+          //     Navigator.pushNamed(context, '/profile');
+          //     Navigator.pop(context);
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Logout'),
@@ -51,9 +50,9 @@ class _HomeState extends State<Home> {
         ),
         home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blueGrey,
-            // title: Text('Issues Near You'),
-            title: Text(FirebaseAuth.instance.currentUser!.displayName!),
+            backgroundColor: Color.fromRGBO(96, 125, 139, 1),
+            title: Text('Issues Near You'),
+            // title: Text(FirebaseAuth.instance.currentUser!.displayName!),
             actions: <Widget>[
               // Container(
               //   margin: EdgeInsets.all(8.0),
@@ -87,60 +86,66 @@ class _HomeState extends State<Home> {
                 children: List.generate(15, (index) {
                   return Column(
                     children: [
-                      Container(
-                        height: 100,
-                        width: 378,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          color: Colors.grey[200],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 16.0),
-                                    child: Text(
-                                      'Issue Type',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 18.0,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/IssueDetails');
+                        },
+                        child: Container(
+                          height: 100,
+                          width: 378,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            color: Colors.grey[200],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16.0),
+                                      child: Text(
+                                        'Issue Type',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      'Distance',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.grey[600],
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        'Distance',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.grey[600],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 160,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                child: Container(
-                                  width: 100,
-                                  height: 25,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: Colors.greenAccent,
-                                  ),
-                                  child: Center(child: Text('In progress')),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 160,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.greenAccent,
+                                    ),
+                                    child: Center(child: Text('In progress')),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
