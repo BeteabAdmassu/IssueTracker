@@ -3,13 +3,47 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'authService.dart';
 
 class addIssue extends StatefulWidget {
   const addIssue({Key? key}) : super(key: key);
 
   @override
   State<addIssue> createState() => _addIssueState();
+}
+
+void showOptions(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () {
+              // Navigate to profile screen
+              Navigator.pushNamed(context, '/profile');
+              // runApp(ProfilePage());
+              // Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Logout'),
+            onTap: () {
+              // Perform logout action
+              AuthService().signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class _addIssueState extends State<addIssue> {
@@ -52,8 +86,10 @@ class _addIssueState extends State<addIssue> {
     }
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -61,15 +97,22 @@ class _addIssueState extends State<addIssue> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Color.fromRGBO(96, 125, 139, 1),
           title: Text('Add Issue'),
           actions: <Widget>[
-            Container(
-              margin: EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundImage: AssetImage('asset/sidePortriat.jpg'),
+            GestureDetector(
+              onTap: () {
+                showOptions(context);
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                child: CircleAvatar(
+                  // backgroundImage: AssetImage('asset/sidePortriat.jpg'),
+                  backgroundImage: NetworkImage(user!.photoURL!),
+                ),
               ),
-            ),
+            )
           ],
         ),
         body: SingleChildScrollView(
@@ -165,7 +208,9 @@ class _addIssueState extends State<addIssue> {
                   Icons.notifications,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/NotificationPage');
+                },
               ),
             ],
           ),

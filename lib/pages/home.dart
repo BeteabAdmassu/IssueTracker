@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
+import 'package:issuetracker/pages/profile.dart';
 import 'authService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,15 +18,16 @@ void showOptions(BuildContext context) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // ListTile(
-          //   leading: Icon(Icons.person),
-          //   title: Text('Profile'),
-          //   onTap: () {
-          //     // Navigate to profile screen
-          //     Navigator.pushNamed(context, '/profile');
-          //     Navigator.pop(context);
-          //   },
-          // ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () {
+              // Navigate to profile screen
+              Navigator.pushNamed(context, '/profile');
+              // runApp(ProfilePage());
+              // Navigator.pop(context);
+            },
+          ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Logout'),
@@ -41,29 +44,19 @@ void showOptions(BuildContext context) {
 }
 
 class _HomeState extends State<Home> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
     return MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
-          // visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(96, 125, 139, 1),
             title: Text('Issues Near You'),
-            // title: Text(FirebaseAuth.instance.currentUser!.displayName!),
             actions: <Widget>[
-              // Container(
-              //   margin: EdgeInsets.all(8.0),
-              //   child: CircleAvatar(
-              //     backgroundImage: AssetImage('asset/sidePortriat.jpg'),
-              //     backgroundImage: NetworkImage(
-              //         'FirebaseAuth.instance.currentUser!.photoURL!'),
-
-              //   ),
-
-              // ),
               GestureDetector(
                 onTap: () {
                   showOptions(context);
@@ -72,8 +65,8 @@ class _HomeState extends State<Home> {
                   width: 50,
                   height: 50,
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'FirebaseAuth.instance.currentUser!.photoURL!'),
+                    // backgroundImage: AssetImage('asset/sidePortriat.jpg'),
+                    backgroundImage: NetworkImage(user!.photoURL!),
                   ),
                 ),
               )
@@ -169,7 +162,9 @@ class _HomeState extends State<Home> {
                     Icons.near_me,
                     color: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
                 ),
                 SizedBox(width: 32.0),
                 SizedBox(width: 32.0),
@@ -179,7 +174,9 @@ class _HomeState extends State<Home> {
                     Icons.notifications,
                     color: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/NotificationPage');
+                  },
                 ),
               ],
             ),

@@ -8,7 +8,7 @@ import 'package:issuetracker/pages/loading.dart';
 import 'package:issuetracker/pages/addIssue.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:issuetracker/pages/profile.dart';
-
+import 'package:issuetracker/pages/notification.dart';
 import 'pages/detailIssue.dart';
 
 Future<void> main() async {
@@ -17,15 +17,16 @@ Future<void> main() async {
   runApp(MaterialApp(
     // giving default appearance till i implement the loading page
 
-    initialRoute: '/authGoogle',
+    initialRoute: '/loading',
     routes: {
-      '/': (context) => Loading(),
+      '/loading': (context) => LoadingPage(),
       '/login': (context) => Login(),
       '/home': (context) => Home(),
       '/addIssue': (context) => addIssue(),
       '/authGoogle': (context) => AuthService().handleAuthState(),
       '/profile': (context) => profile(),
       '/IssueDetails': (context) => IssueDetails(),
+      '/NotificationPage': (context) => NotificationPage(),
     },
   ));
 }
