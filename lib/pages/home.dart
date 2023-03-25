@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:flutter/material.dart';
-import 'package:issuetracker/pages/profile.dart';
 import 'authService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

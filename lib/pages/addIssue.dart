@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'authService.dart';
 
 class addIssue extends StatefulWidget {
@@ -60,6 +61,8 @@ class _addIssueState extends State<addIssue> {
 
   File? get imageFile => _imageFile;
   File? _imageFile;
+  String? get description => _descriptionController.text;
+  String uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -75,10 +78,15 @@ class _addIssueState extends State<addIssue> {
     try {
       final pickedFile =
           // await _imagePicker.getImage(source: ImageSource.gallery,);
-          await _imagePicker.pickImage(source: ImageSource.gallery);
+          await _imagePicker.pickImage(source: ImageSource.camera);
       if (pickedFile != null) {
         setState(() {
           _imageFile = File(pickedFile.path);
+          print(_imageFile);
+          Reference referenceRoot =
+              FirebaseStorage.instance.ref().child('images');
+          Reference reference = referenceRoot.child(uniqueId);
+          reference.putFile(_imageFile!);
         });
       }
     } catch (e) {

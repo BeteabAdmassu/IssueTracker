@@ -48,16 +48,24 @@ class _LoadingPageState extends State<LoadingPage>
             //   textAlign: TextAlign.center,
             //   style: TextStyle(fontFamily: "IndieFlower", fontSize: 50),
             // ),
+
             Center(
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget? child) {
-                  return CircularProgressIndicator(
-                    value: _controller.value,
-                    strokeWidth: 2,
-                    color: Colors.blueGrey,
-                  );
-                },
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (BuildContext context, Widget? child) {
+                      return CircularProgressIndicator(
+                        value: _controller.value,
+                        strokeWidth: 2,
+                        color: Colors.blueGrey,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],

@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:issuetracker/pages/profile.dart';
 import 'package:issuetracker/pages/notification.dart';
 import 'pages/detailIssue.dart';
+import 'pages/googleMap.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ Future<void> main() async {
       '/profile': (context) => profile(),
       '/IssueDetails': (context) => IssueDetails(),
       '/NotificationPage': (context) => NotificationPage(),
+      '/googleMap': (context) => googleMap(),
     },
   ));
 }

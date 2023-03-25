@@ -38,11 +38,15 @@ dependencies:
   flutter_signin_button: ^2.0.0
   image_picker: ^0.8.7
   url_launcher: ^6.1.10
+  geocoding: ^2.1.0
+  google_maps_flutter: ^2.2.5
+  firebase_storage: ^11.0.16
   # google_maps_flutter: ^2.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
   firebase_core:
+  cloud_firestore:
   firebase_auth:
   google_sign_in:
   flutter_launcher_icons: "^0.12.0"
