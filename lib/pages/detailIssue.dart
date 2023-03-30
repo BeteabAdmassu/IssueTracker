@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'authService.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IssueDetails extends StatefulWidget {
+  IssueDetails(Object? arg);
+
   @override
   _IssueDetailsState createState() => _IssueDetailsState();
 }
+
+// Map<String, dynamic> args =
+//     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+// String category = args['category'];
+// String location = args['location'];
+// String status = args['status'];
 
 void showOptions(BuildContext context) {
   showModalBottomSheet(
@@ -61,7 +70,7 @@ class _IssueDetailsState extends State<IssueDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(96, 125, 139, 1),
-        title: Text('Issues Near You'),
+        title: Text('Details'),
         actions: <Widget>[
           GestureDetector(
             onTap: () {

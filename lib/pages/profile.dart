@@ -141,7 +141,7 @@ class _profileState extends State<profile> {
                     style: TextStyle(
                       color: Colors.white,
                       letterSpacing: 2,
-                      fontSize: 18,
+                      fontSize: 15,
                     ),
                   ),
                   SizedBox(

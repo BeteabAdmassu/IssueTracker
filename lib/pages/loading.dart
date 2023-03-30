@@ -39,21 +39,15 @@ class _LoadingPageState extends State<LoadingPage>
           children: [
             Center(
               child: Image.asset(
-                'asset/loadingLogo.png',
-                height: 150,
+                'asset/IssueTracker.png',
+                height: 700,
               ),
             ),
-            // Text(
-            //   "Issue Tracker",
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(fontFamily: "IndieFlower", fontSize: 50),
-            // ),
-
             Center(
               child: Column(
                 children: [
                   SizedBox(
-                    height: 100,
+                    height: 600,
                   ),
                   AnimatedBuilder(
                     animation: _controller,

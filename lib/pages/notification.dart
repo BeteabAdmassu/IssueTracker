@@ -68,7 +68,8 @@ class NotificationPage extends StatelessWidget {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(user!.photoURL!),
             ),
-            title: Text('The issue you reported has been resolved'),
+            title:
+                Text('The issue you reported on 03/21/2023 has been resolved'),
             subtitle: Text('Thank you for reporting the issue!'),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
@@ -79,7 +80,8 @@ class NotificationPage extends StatelessWidget {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(user!.photoURL!),
             ),
-            title: Text('The issue you reported has been resolved'),
+            title:
+                Text('The issue you reported on 03/12/2023 has been resolved'),
             subtitle: Text('Thank you for reporting the issue!'),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
@@ -90,12 +92,11 @@ class NotificationPage extends StatelessWidget {
             leading: CircleAvatar(
               backgroundImage: NetworkImage(user!.photoURL!),
             ),
-            title: Text('The issue you reported has been resolved'),
+            title:
+                Text('The issue you reported on 03/23/2023 has been resolved'),
             subtitle: Text('Thank you for reporting the issue!'),
             trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              // TODO: Open Sarah's blog post
-            },
+            onTap: () {},
           ),
         ],
       ),

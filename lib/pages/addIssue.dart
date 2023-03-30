@@ -51,47 +51,69 @@ class _addIssueState extends State<addIssue> {
   late String _selectedCategory = 'Pothole';
   final List<String> _categories = [
     'Pothole',
-    'Damaged side walk',
-    'Broken street light',
     'Damaged road',
     'Damaged traffic light',
-    'Damaged traffic sign',
+    'Light outages',
+    'Water shortage',
+    'Closed or open road sewage',
+    'Damaged or missing guard rail',
+    'Blocked road',
+    'Blocked drain',
+    'Blocked sewer',
+    'Flood',
+    'Blocked storm drain',
+    'Blocked water main',
+    'Blocked fire hydrant',
+    'Blocked sidewalk',
     'Damaged traffic signal',
+    'Blocked crosswalk',
+    'Blocked bike lane',
+    'Broken street light',
+    'Damaged traffic sign',
+    'Blocked bus stop',
+    'Blocked parking',
+    'Blocked driveway',
+    'Damaged side walk'
   ];
-
+  CollectionReference issues = FirebaseFirestore.instance.collection('issues');
+  String imageUrl = '';
   File? get imageFile => _imageFile;
   File? _imageFile;
   String? get description => _descriptionController.text;
+  String? get location => _locationController.text;
+  String? get Category => _locationController.text;
   String uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
   final ImagePicker _imagePicker = ImagePicker();
 
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
 
-  @override
-  void dispose() {
-    _descriptionController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _descriptionController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _pickImage() async {
+    final pickedFile;
+
+    pickedFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile == null) return;
+    setState(() {
+      _imageFile = File(pickedFile.path);
+    });
+    // handle the database image upload
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child("Images");
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueId);
     try {
-      final pickedFile =
-          // await _imagePicker.getImage(source: ImageSource.gallery,);
-          await _imagePicker.pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        setState(() {
-          _imageFile = File(pickedFile.path);
-          print(_imageFile);
-          Reference referenceRoot =
-              FirebaseStorage.instance.ref().child('images');
-          Reference reference = referenceRoot.child(uniqueId);
-          reference.putFile(_imageFile!);
-        });
-      }
-    } catch (e) {
-      print('Error while picking the image: $e');
-    }
+      // this get the image url from database
+      await referenceImageToUpload.putFile(_imageFile!);
+      imageUrl = await referenceImageToUpload.getDownloadURL();
+    } catch (e) {}
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -147,20 +169,25 @@ class _addIssueState extends State<addIssue> {
                   ),
                 ),
                 SizedBox(height: 16.0),
+
                 GestureDetector(
                   onTap: _pickImage,
                   child: Container(
-                    height: 200,
+                    height: 350,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.grey,
                         width: 1.0,
                       ),
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: _imageFile != null
-                        ? Image.file(
-                            _imageFile!,
-                            fit: BoxFit.cover,
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(13.0),
+                            child: Image.file(
+                              _imageFile!,
+                              fit: BoxFit.cover,
+                            ),
                           )
                         : Icon(
                             Icons.image,
@@ -175,18 +202,56 @@ class _addIssueState extends State<addIssue> {
                     labelText: 'Description',
                     border: OutlineInputBorder(),
                   ),
-                  maxLines: 5,
+                  maxLines: 2,
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                    labelText: 'Location',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 1,
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (imageUrl == '') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select an image'),
+                        ),
+                      );
+                      return;
+                    }
+                    Map<String, String> dataToSend = {
+                      'name': user.displayName!
+                          .substring(0, user.displayName!.indexOf(' ')),
+                      'email': user.email!,
+                      'description': _descriptionController.text,
+                      'location': _locationController.text,
+                      'category': _selectedCategory,
+                      'imageUrl': imageUrl,
+                      'status': 'pending'
+                    };
+                    issues.add(dataToSend);
+                    _descriptionController.text = '';
+                    _locationController.text = '';
+                    imageUrl = '';
+                    _imageFile = null;
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     content: Text('Issue added successfully'),
+                    //   ),
+                    // );
+                  },
                   child: Text('Submit'),
                 ),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.location_on),
-                  label: Text('Set Pointer on Map'),
-                ),
+                // ElevatedButton.icon(
+                //   onPressed: () {},
+                //   icon: Icon(Icons.location_on),
+                //   label: Text('Set Pointer on Map'),
+                // ),
               ],
             ),
           ),

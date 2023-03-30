@@ -26,7 +26,7 @@ Future<void> main() async {
       '/addIssue': (context) => addIssue(),
       '/authGoogle': (context) => AuthService().handleAuthState(),
       '/profile': (context) => profile(),
-      '/IssueDetails': (context) => IssueDetails(),
+      // '/IssueDetails': (context) => IssueDetails(),
       '/NotificationPage': (context) => NotificationPage(),
       '/googleMap': (context) => googleMap(),
     },
