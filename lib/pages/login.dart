@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                   style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
                   onPressed: () {
                     // Perform login functionality here till then it shows the next page
-                    Navigator.pushNamed(context, '/home');
+                    // Navigator.pushNamed(context, '/home');
                   },
                   child: Text(
                     'Login',
