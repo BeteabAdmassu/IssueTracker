@@ -239,6 +239,7 @@ class _addIssueState extends State<addIssue> {
                     _locationController.text = '';
                     imageUrl = '';
                     _imageFile = null;
+                    Navigator.pushNamed(context, '/home');
                     // ScaffoldMessenger.of(context).showSnackBar(
                     //   SnackBar(
                     //     content: Text('Issue added successfully'),
